@@ -1,0 +1,47 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'se.transmode.gradle:gradle-docker:1.2'
+    }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'idea'
+apply plugin: 'docker'
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+ext {
+    scalaVersion = '2.11'
+}
+
+group 'com.jvm-bloggers'
+version '0.1'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.restfb:restfb:1.30.0'
+    compile 'org.projectlombok:lombok:1.16.10'
+
+    //Kafka
+    compile "com.typesafe.akka:akka-stream-kafka_2.11:0.12"
+    compile 'org.apache.kafka:kafka-clients:0.10.0.1'
+
+    //Akka
+    compile 'com.typesafe.akka:akka-stream_2.11:2.4.12'
+    compile 'com.typesafe.akka:akka-stream-testkit_2.11:2.4.12'
+}
