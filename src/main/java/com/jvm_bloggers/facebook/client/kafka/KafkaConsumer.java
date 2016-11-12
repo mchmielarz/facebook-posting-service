@@ -1,6 +1,7 @@
 package com.jvm_bloggers.facebook.client.kafka;
 
 import akka.actor.ActorSystem;
+import akka.kafka.ConsumerMessage;
 import akka.kafka.ConsumerSettings;
 import akka.kafka.Subscription;
 import akka.kafka.Subscriptions;
@@ -8,6 +9,8 @@ import akka.kafka.javadsl.Consumer;
 import akka.stream.ActorMaterializer;
 import akka.stream.Materializer;
 import akka.stream.javadsl.Sink;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jvm_bloggers.facebook.client.NewIssuePublishedData;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +21,8 @@ import static org.apache.kafka.clients.consumer.ConsumerConfig.AUTO_OFFSET_RESET
 
 @Slf4j
 public class KafkaConsumer {
+
+    private final ObjectMapper mapper = new ObjectMapper();
 
     public void run() {
         final ActorSystem system = ActorSystem.create();
@@ -31,7 +36,10 @@ public class KafkaConsumer {
         Consumer
             .committableSource(consumerSettings, subscription)
             .map(msg -> {
-                log.info("Received a message... {}", msg);
+                log.info("Received a message: {}", msg);
+                ConsumerMessage.CommittableMessage committableMessage = (ConsumerMessage.CommittableMessage) msg;
+                final NewIssuePublishedData data = parse(committableMessage);
+                log.info("Parsed issue data: {}", data);
                 return "etwas";
             })
             .runWith(loggingSink, materializer);
@@ -43,6 +51,11 @@ public class KafkaConsumer {
             .withBootstrapServers(kafkaConfig.getString("address"))
             .withGroupId(kafkaConfig.getString("group"))
             .withProperty(AUTO_OFFSET_RESET_CONFIG, "earliest");
+    }
+
+    private NewIssuePublishedData parse(ConsumerMessage.CommittableMessage msg) throws java.io.IOException {
+        final Object value = msg.record().value();
+        return mapper.readValue((String) value, NewIssuePublishedData.class);
     }
 
 }
