@@ -38,10 +38,8 @@ dependencies {
     compile 'org.projectlombok:lombok:1.16.10'
 
     //Kafka
-    compile "com.typesafe.akka:akka-stream-kafka_2.11:0.12"
-    compile 'org.apache.kafka:kafka-clients:0.10.0.1'
+    compile 'com.typesafe.akka:akka-stream-kafka_2.11:0.12'
 
     //Akka
     compile 'com.typesafe.akka:akka-stream_2.11:2.4.12'
-    compile 'com.typesafe.akka:akka-stream-testkit_2.11:2.4.12'
 }
