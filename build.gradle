@@ -36,6 +36,7 @@ repositories {
 dependencies {
     compile 'com.restfb:restfb:1.30.0'
     compile 'org.projectlombok:lombok:1.16.10'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.5.1'
 
     //Kafka
     compile 'com.typesafe.akka:akka-stream-kafka_2.11:0.12'
