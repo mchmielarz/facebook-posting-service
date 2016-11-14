@@ -35,6 +35,7 @@ public class KafkaConsumer {
                 ConsumerMessage.CommittableMessage committableMessage = (ConsumerMessage.CommittableMessage) msg;
                 final NewIssuePublishedData data = parse(committableMessage);
                 log.info("Parsed issue data: {}", data);
+                committableMessage.committableOffset().commitJavadsl();
                 return "etwas";
             })
             .runWith(loggingSink, materializer);
