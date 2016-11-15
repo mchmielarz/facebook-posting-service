@@ -38,7 +38,6 @@ dependencies {
     compile 'org.projectlombok:lombok:1.16.10'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.8.4'
     compile 'ch.qos.logback:logback-classic:1.1.7'
-    compile 'cglib:cglib-nodep:3.2.4'
 
     //Kafka
     compile 'com.typesafe.akka:akka-stream-kafka_2.11:0.12'
@@ -48,4 +47,6 @@ dependencies {
 
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
     testCompile 'com.github.charithe:kafka-junit:3.0.0'
+    testCompile 'cglib:cglib-nodep:3.2.4'
+    testCompile 'org.objenesis:objenesis:2.4'
 }
