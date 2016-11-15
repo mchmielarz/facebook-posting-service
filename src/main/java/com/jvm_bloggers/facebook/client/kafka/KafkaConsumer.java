@@ -11,6 +11,7 @@ import akka.stream.Materializer;
 import akka.stream.javadsl.Sink;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jvm_bloggers.facebook.client.NewIssuePublishedData;
+import com.jvm_bloggers.facebook.client.fb.FacebookPublisher;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.ByteArrayDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -19,6 +20,11 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 public class KafkaConsumer {
 
     private final ObjectMapper mapper = new ObjectMapper();
+    private final FacebookPublisher facebookPublisher;
+
+    public KafkaConsumer(FacebookPublisher facebookPublisher) {
+        this.facebookPublisher = facebookPublisher;
+    }
 
     public void run() {
         final ActorSystem system = ActorSystem.create();
@@ -34,9 +40,9 @@ public class KafkaConsumer {
                 log.info("Received a message: {}", msg);
                 ConsumerMessage.CommittableMessage committableMessage = (ConsumerMessage.CommittableMessage) msg;
                 final NewIssuePublishedData data = parse(committableMessage);
-                log.info("Parsed issue data: {}", data);
+                final String postId = facebookPublisher.publishPost(data);
                 committableMessage.committableOffset().commitJavadsl();
-                return "etwas";
+                return postId;
             })
             .runWith(loggingSink, materializer);
     }
