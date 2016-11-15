@@ -10,10 +10,6 @@ import org.junit.Rule
 import spock.lang.Specification
 import spock.util.concurrent.BlockingVariable
 
-import java.util.concurrent.TimeUnit
-
-import static org.awaitility.Awaitility.await
-
 @Slf4j
 class KafkaSpec extends Specification {
 
