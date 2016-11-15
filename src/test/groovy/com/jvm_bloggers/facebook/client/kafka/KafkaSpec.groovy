@@ -23,16 +23,16 @@ class KafkaSpec extends Specification {
             NewIssuePublishedData data = new NewIssuePublishedData(55, "http://jvm-bloggers.com/")
             String issueData = new ObjectMapper().writeValueAsString(data)
         and:
-            def awaitTillTrue = new BlockingVariable<Boolean>(1)
+            def awaitForPublisher = new BlockingVariable<Boolean>(1)
             facebookPublisher.publishPost(_) >> {
-                awaitTillTrue.set(true)
+                awaitForPublisher.set(true)
             }
         and:
             new KafkaConsumer(facebookPublisher).run()
         when:
             kafkaRule.helper().produceStrings("com.jvm_bloggers.issue.published", issueData)
         then:
-            awaitTillTrue.get()
+            awaitForPublisher.get()
     }
 
 }
