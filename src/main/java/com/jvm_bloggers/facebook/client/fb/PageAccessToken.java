@@ -1,6 +1,5 @@
 package com.jvm_bloggers.facebook.client.fb;
 
-import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import static lombok.AccessLevel.PRIVATE;
