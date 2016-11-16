@@ -12,11 +12,16 @@ import java.io.IOException;
 public class Application {
 
 	public static void main(String[] args) throws IOException {
-		final Config config = ConfigFactory.defaultApplication();
-		PageAccessTokenProvider tokenProvider = new PageAccessTokenProvider(config);
+		final Config fbConfig = getFacebookConfig();
+		PageAccessTokenProvider tokenProvider = new PageAccessTokenProvider(fbConfig);
 		final PageAccessToken pageAccessToken = tokenProvider.getToken();
-		FacebookPublisher facebookPublisher = new FacebookPublisher(config, pageAccessToken);
+		FacebookPublisher facebookPublisher = new FacebookPublisher(fbConfig, pageAccessToken);
 		new KafkaConsumer(facebookPublisher).run();
+	}
+
+	private static Config getFacebookConfig() {
+		final Config systemProperties = ConfigFactory.systemProperties();
+		return ConfigFactory.load().withFallback(systemProperties).getConfig("facebook");
 	}
 
 }
