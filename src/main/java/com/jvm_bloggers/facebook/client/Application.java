@@ -13,10 +13,13 @@ public class Application {
 
 	public static void main(String[] args) throws IOException {
 		final Config fbConfig = getFacebookConfig();
-		PageAccessTokenProvider tokenProvider = new PageAccessTokenProvider(fbConfig);
-		final PageAccessToken pageAccessToken = tokenProvider.getToken();
+		final PageAccessToken pageAccessToken = getPageAccessToken(fbConfig);
 		FacebookPublisher facebookPublisher = new FacebookPublisher(fbConfig, pageAccessToken);
 		new KafkaConsumer(facebookPublisher).run();
+	}
+
+	private static PageAccessToken getPageAccessToken(Config fbConfig) throws IOException {
+		return new PageAccessTokenProvider(fbConfig).getToken();
 	}
 
 	private static Config getFacebookConfig() {
