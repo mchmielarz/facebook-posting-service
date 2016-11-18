@@ -12,7 +12,7 @@ import java.io.IOException;
 public class Application {
 
 	public static void main(String[] args) throws IOException {
-		final Config fbConfig = getFacebookConfig();
+		final Config fbConfig = getApplicationConfig().getConfig("facebook");
 		final PageAccessToken pageAccessToken = getPageAccessToken(fbConfig);
 		FacebookPublisher facebookPublisher = new FacebookPublisher(fbConfig, pageAccessToken);
 		new KafkaConsumer(facebookPublisher).run();
@@ -22,9 +22,9 @@ public class Application {
 		return new PageAccessTokenProvider(fbConfig).getToken();
 	}
 
-	private static Config getFacebookConfig() {
+	private static Config getApplicationConfig() {
 		final Config systemProperties = ConfigFactory.systemProperties();
-		return ConfigFactory.load().withFallback(systemProperties).getConfig("facebook");
+		return ConfigFactory.load().withFallback(systemProperties);
 	}
 
 }
