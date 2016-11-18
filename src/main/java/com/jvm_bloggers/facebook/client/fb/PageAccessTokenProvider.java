@@ -5,9 +5,11 @@ import com.restfb.DefaultFacebookClient;
 import com.restfb.Version;
 import com.restfb.WebRequestor;
 import com.typesafe.config.Config;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
+@Slf4j
 public class PageAccessTokenProvider {
 
     private static final String PAGE_TOKEN_URL = "https://graph.facebook.com/%s?fields=access_token&access_token=%s&appsecret_proof=%s";
@@ -27,7 +29,9 @@ public class PageAccessTokenProvider {
     }
 
     public PageAccessToken getToken() throws IOException {
+        log.info("Fetching application secret proof...");
         String appSecretProof = facebookClient.obtainAppSecretProof(accessToken, appSecret);
+        log.info("Requesting page access token...");
         WebRequestor.Response response = facebookClient.getWebRequestor().executeGet(
             String.format(PAGE_TOKEN_URL, pageId, accessToken, appSecretProof)
         );
