@@ -1,0 +1,5 @@
+.gradletasknamecache
+.gradle/
+.idea/
+build/
+logs/
