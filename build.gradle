@@ -39,6 +39,7 @@ dependencies {
     compile 'org.projectlombok:lombok:1.16.10'
     compile 'ch.qos.logback:logback-classic:1.1.7'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.8.4'
+    compile 'org.antlr:ST4:4.0.8'
 
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
     testCompile 'com.github.charithe:kafka-junit:3.0.0'
