@@ -24,7 +24,8 @@ class KafkaSpec extends Specification {
             String issueData = new ObjectMapper().writeValueAsString(data)
         and:
             def awaitForPublisher = new BlockingVariable<Boolean>(1)
-            facebookPublisher.publishPost(_) >> {
+            facebookPublisher.publishPost(_) >> { arguments ->
+                log.info("Issue data captured: " + arguments[0])
                 awaitForPublisher.set(true)
             }
         and:
