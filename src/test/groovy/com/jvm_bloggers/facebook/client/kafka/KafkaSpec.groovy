@@ -18,7 +18,7 @@ class KafkaSpec extends Specification {
 
     FacebookPublisher facebookPublisher = Mock(FacebookPublisher)
 
-    def "should do kafka"() {
+    def "Should consume a message from Kafka and publish it with Facebook publisher"() {
         given:
             NewIssuePublishedData data = new NewIssuePublishedData(55, "http://jvm-bloggers.com/")
             String issueData = new ObjectMapper().writeValueAsString(data)
