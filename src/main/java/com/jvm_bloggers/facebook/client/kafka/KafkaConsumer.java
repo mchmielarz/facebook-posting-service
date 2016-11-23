@@ -13,12 +13,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jvm_bloggers.facebook.client.NewIssuePublishedData;
 import com.jvm_bloggers.facebook.client.fb.FacebookPublisher;
 import lombok.extern.slf4j.Slf4j;
+import net.jodah.failsafe.Failsafe;
+import net.jodah.failsafe.RetryPolicy;
 import org.apache.kafka.common.serialization.ByteArrayDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 @Slf4j
 public class KafkaConsumer {
 
+    private final RetryPolicy retryPolicy = new RetryPolicy().retryOn(Exception.class);
     private final ObjectMapper mapper = new ObjectMapper();
     private final FacebookPublisher facebookPublisher;
 
@@ -40,7 +43,8 @@ public class KafkaConsumer {
                 log.info("Received a message: {}", msg);
                 ConsumerMessage.CommittableMessage committableMessage = (ConsumerMessage.CommittableMessage) msg;
                 final NewIssuePublishedData data = parse(committableMessage);
-                final String postId = facebookPublisher.publishPost(data);
+                final String postId =
+                    Failsafe.with(retryPolicy).get(() -> facebookPublisher.publishPost(data));
                 committableMessage.committableOffset().commitJavadsl();
                 return postId;
             })
