@@ -1,16 +1,20 @@
 buildscript {
     repositories {
-        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
 
     dependencies {
         classpath 'se.transmode.gradle:gradle-docker:1.2'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
     }
 }
 
 apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: 'docker'
+apply plugin: 'com.github.johnrengelman.shadow'
 
 idea {
     module {
@@ -46,4 +50,36 @@ dependencies {
     testCompile 'com.github.charithe:kafka-junit:3.0.0'
     testCompile 'cglib:cglib-nodep:3.2.4'
     testCompile 'org.objenesis:objenesis:2.4'
+}
+
+String getTimestampWithGitHash() {
+    String timeStamp = new Date().format('yyyyMMdd-HHmmss')
+    String cmd = "git log --pretty=format:%h -n 1"
+    def proc = cmd.execute()
+    proc.waitFor()
+    return timeStamp + '-' + proc.in.text
+}
+
+task buildDocker(type: Docker, dependsOn: build) {
+    push = true
+    applicationName = jar.baseName
+    dockerfile = file('src/main/docker/Dockerfile')
+    tagVersion = jar.version + '-' + getTimestampWithGitHash()
+    doFirst {
+        copy {
+            from shadowJar
+            into stageDir
+        }
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.jvm_bloggers.facebook.client.Application'
+    }
+}
+
+shadowJar {
+    configurations = [project.configurations.compile]
+    append('reference.conf')
 }
