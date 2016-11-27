@@ -17,4 +17,4 @@ USER $USER_NAME
 WORKDIR $APP_HOME
 RUN sh -c 'touch jvm-bloggers-facebook-client.jar'
 
-CMD java -Djava.security.egd=file:/dev/./urandom -Dfacebook.app.secret=$APP_SECRET -Dfacebook.access.token=$ACCESS_TOKEN -jar jvm-bloggers-facebook-client.jar
+CMD java -Djava.security.egd=file:/dev/./urandom -Dfacebook.app.secret=$APP_SECRET -Dfacebook.user.access.token=$ACCESS_TOKEN -jar jvm-bloggers-facebook-client.jar

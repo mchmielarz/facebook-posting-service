@@ -16,24 +16,24 @@ public class PageAccessTokenProvider {
 
     private final DefaultFacebookClient facebookClient;
     private final String appSecret;
-    private final String accessToken;
+    private final String userAccessToken;
     private final String pageId;
     private final ObjectMapper objectMapper;
 
     public PageAccessTokenProvider(Config facebookConfig) {
         facebookClient = new DefaultFacebookClient(Version.LATEST);
         appSecret = facebookConfig.getString("app.secret");
-        accessToken = facebookConfig.getString("access.token");
+        userAccessToken = facebookConfig.getString("user.access.token");
         pageId = facebookConfig.getString("page.id");
         objectMapper = new ObjectMapper();
     }
 
     public PageAccessToken getToken() throws IOException {
         log.info("Fetching application secret proof...");
-        String appSecretProof = facebookClient.obtainAppSecretProof(accessToken, appSecret);
+        String appSecretProof = facebookClient.obtainAppSecretProof(userAccessToken, appSecret);
         log.info("Requesting page access token...");
         WebRequestor.Response response = facebookClient.getWebRequestor().executeGet(
-            String.format(PAGE_TOKEN_URL, pageId, accessToken, appSecretProof)
+            String.format(PAGE_TOKEN_URL, pageId, userAccessToken, appSecretProof)
         );
         return extractToken(response);
     }
