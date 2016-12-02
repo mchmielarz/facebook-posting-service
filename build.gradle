@@ -27,7 +27,7 @@ ext {
     scalaVersion = '2.11'
 }
 
-group 'com.jvm-bloggers'
+group 'jvmbloggers'
 version '0.1'
 
 sourceCompatibility = 1.8
