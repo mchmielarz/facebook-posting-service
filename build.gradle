@@ -60,7 +60,7 @@ String getTimestampWithGitHash() {
     return timeStamp + '-' + proc.in.text
 }
 
-task buildDocker(type: Docker, dependsOn: build) {
+task buildDocker(type: Docker, dependsOn: shadowJar) {
     push = true
     applicationName = jar.baseName
     dockerfile = file('src/main/docker/Dockerfile')

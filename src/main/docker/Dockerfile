@@ -10,7 +10,7 @@ RUN mkdir $APP_HOME
 RUN mkdir $APP_HOME/logs
 RUN chown $USER_NAME $APP_HOME/logs
 
-ADD jvm-bloggers-facebook-client*all.jar $APP_HOME/jvm-bloggers-facebook-client.jar
+COPY jvm-bloggers-facebook-client*all.jar $APP_HOME/jvm-bloggers-facebook-client.jar
 RUN chown $USER_NAME $APP_HOME/jvm-bloggers-facebook-client.jar
 
 USER $USER_NAME
