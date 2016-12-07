@@ -10,11 +10,11 @@ RUN mkdir $APP_HOME
 RUN mkdir $APP_HOME/logs
 RUN chown $USER_NAME $APP_HOME/logs
 
-COPY jvm-bloggers-facebook-client*all.jar $APP_HOME/jvm-bloggers-facebook-client.jar
-RUN chown $USER_NAME $APP_HOME/jvm-bloggers-facebook-client.jar
+COPY facebook-posting-service*all.jar $APP_HOME/facebook-posting-service.jar
+RUN chown $USER_NAME $APP_HOME/facebook-posting-service.jar
 
 USER $USER_NAME
 WORKDIR $APP_HOME
-RUN sh -c 'touch jvm-bloggers-facebook-client.jar'
+RUN sh -c 'touch facebook-posting-service.jar'
 
-CMD java -Djava.security.egd=file:/dev/./urandom -Dfacebook.app.secret=$APP_SECRET -Dfacebook.user.access.token=$ACCESS_TOKEN -jar jvm-bloggers-facebook-client.jar
+CMD java -Djava.security.egd=file:/dev/./urandom -Dfacebook.app.secret=$APP_SECRET -Dfacebook.user.access.token=$ACCESS_TOKEN -jar facebook-posting-service.jar
