@@ -1,4 +1,4 @@
-package com.jvm_bloggers.facebook.client;
+package pl.devthoughts.facebook.client;
 
 import lombok.Value;
 

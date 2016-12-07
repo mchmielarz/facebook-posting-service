@@ -1,7 +1,7 @@
-package com.jvm_bloggers.facebook.client.fb;
+package pl.devthoughts.facebook.client.fb;
 
-import com.jvm_bloggers.facebook.client.NewIssuePublishedData;
-import com.jvm_bloggers.facebook.client.templates.MessageDataProvider;
+import pl.devthoughts.facebook.client.NewIssuePublishedData;
+import pl.devthoughts.facebook.client.templates.MessageDataProvider;
 import com.restfb.*;
 import com.restfb.types.FacebookType;
 import com.restfb.types.Post;

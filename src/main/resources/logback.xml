@@ -14,7 +14,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.jvm_bloggers.facebook.client.kafka.KafkaConsumer" level="info">
+    <logger name="pl.devthoughts.facebook.client.kafka.KafkaConsumer" level="info">
         <appender-ref ref="MESSAGES_LOG" />
     </logger>
 

@@ -1,11 +1,11 @@
-package com.jvm_bloggers.facebook.client;
+package pl.devthoughts.facebook.client;
 
-import com.jvm_bloggers.facebook.client.fb.FacebookPublisher;
-import com.jvm_bloggers.facebook.client.fb.PageAccessToken;
-import com.jvm_bloggers.facebook.client.fb.PageAccessTokenProvider;
-import com.jvm_bloggers.facebook.client.kafka.KafkaConsumer;
-import com.jvm_bloggers.facebook.client.templates.MessageDataProvider;
-import com.jvm_bloggers.facebook.client.templates.MessageTemplateProvider;
+import pl.devthoughts.facebook.client.fb.FacebookPublisher;
+import pl.devthoughts.facebook.client.fb.PageAccessToken;
+import pl.devthoughts.facebook.client.fb.PageAccessTokenProvider;
+import pl.devthoughts.facebook.client.kafka.KafkaConsumer;
+import pl.devthoughts.facebook.client.templates.MessageDataProvider;
+import pl.devthoughts.facebook.client.templates.MessageTemplateProvider;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 

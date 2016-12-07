@@ -1,4 +1,4 @@
-package com.jvm_bloggers.facebook.client.kafka;
+package pl.devthoughts.facebook.client.kafka;
 
 import akka.actor.ActorSystem;
 import akka.kafka.ConsumerMessage;
@@ -10,8 +10,8 @@ import akka.stream.ActorMaterializer;
 import akka.stream.Materializer;
 import akka.stream.javadsl.Sink;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jvm_bloggers.facebook.client.NewIssuePublishedData;
-import com.jvm_bloggers.facebook.client.fb.FacebookPublisher;
+import pl.devthoughts.facebook.client.NewIssuePublishedData;
+import pl.devthoughts.facebook.client.fb.FacebookPublisher;
 import lombok.extern.slf4j.Slf4j;
 import net.jodah.failsafe.Failsafe;
 import net.jodah.failsafe.RetryPolicy;

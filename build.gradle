@@ -75,7 +75,7 @@ task buildDocker(type: Docker, dependsOn: shadowJar) {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'com.jvm_bloggers.facebook.client.Application'
+        attributes 'Main-Class': 'pl.devthoughts.facebook.client.Application'
     }
 }
 

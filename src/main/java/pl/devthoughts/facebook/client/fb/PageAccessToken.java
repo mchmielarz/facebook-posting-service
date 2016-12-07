@@ -1,4 +1,4 @@
-package com.jvm_bloggers.facebook.client.fb;
+package pl.devthoughts.facebook.client.fb;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

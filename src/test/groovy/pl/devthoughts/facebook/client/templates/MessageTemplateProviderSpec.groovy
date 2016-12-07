@@ -1,4 +1,4 @@
-package com.jvm_bloggers.facebook.client.templates
+package pl.devthoughts.facebook.client.templates
 
 import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory

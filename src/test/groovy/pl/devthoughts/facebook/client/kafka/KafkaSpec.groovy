@@ -1,10 +1,10 @@
-package com.jvm_bloggers.facebook.client.kafka
+package pl.devthoughts.facebook.client.kafka
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.charithe.kafka.EphemeralKafkaBroker
 import com.github.charithe.kafka.KafkaJunitRule
-import com.jvm_bloggers.facebook.client.NewIssuePublishedData
-import com.jvm_bloggers.facebook.client.fb.FacebookPublisher
+import pl.devthoughts.facebook.client.NewIssuePublishedData
+import pl.devthoughts.facebook.client.fb.FacebookPublisher
 import groovy.util.logging.Slf4j
 import org.junit.Rule
 import spock.lang.Specification
