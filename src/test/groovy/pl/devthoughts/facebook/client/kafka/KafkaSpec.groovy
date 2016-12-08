@@ -28,7 +28,7 @@ class KafkaSpec extends Specification {
         and:
             new KafkaConsumer(facebookPublisher).run()
         when:
-            kafkaRule.helper().produceStrings("com.jvm_bloggers.issue.published", MESSAGE)
+            kafkaRule.helper().produceStrings("facebook.posting.service", MESSAGE)
         then:
             facebookAck.get()
     }
