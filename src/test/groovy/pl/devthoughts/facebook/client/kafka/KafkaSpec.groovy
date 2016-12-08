@@ -11,12 +11,12 @@ import spock.util.concurrent.BlockingVariable
 @Slf4j
 class KafkaSpec extends Specification {
 
+    private static final String MESSAGE = '{"link":"http://some.url","message":"Readme"}'
+
     @Rule
     public KafkaJunitRule kafkaRule = new KafkaJunitRule(EphemeralKafkaBroker.create(9092, 2181));
 
-    FacebookPublisher facebookPublisher = Mock(FacebookPublisher)
-
-    private static final String MESSAGE = '{"link":"http://some.url","message":"Readme"}'
+    private FacebookPublisher facebookPublisher = Mock(FacebookPublisher)
 
     def "Should consume a message from Kafka and publish it with Facebook publisher"() {
         given:
