@@ -1,12 +1,13 @@
 package pl.devthoughts.facebook.client.fb;
 
-import pl.devthoughts.facebook.client.NewIssuePublishedData;
-import pl.devthoughts.facebook.client.templates.MessageDataProvider;
-import com.restfb.*;
+import com.restfb.DefaultFacebookClient;
+import com.restfb.FacebookClient;
+import com.restfb.Version;
 import com.restfb.types.FacebookType;
 import com.restfb.types.Post;
 import com.typesafe.config.Config;
 import lombok.extern.slf4j.Slf4j;
+import pl.devthoughts.facebook.client.PostData;
 
 import java.io.IOException;
 
@@ -14,22 +15,16 @@ import java.io.IOException;
 public class FacebookPublisher {
 
     private final FacebookClient facebook;
-    private final MessageDataProvider messageDataProvider;
 
     public FacebookPublisher(Config config,
-                             PageAccessToken pageAccessToken,
-                             MessageDataProvider messageDataProvider) throws IOException {
-        this.messageDataProvider = messageDataProvider;
+                             PageAccessToken pageAccessToken) throws IOException {
         String appSecret = config.getString("app.secret");
         facebook = new DefaultFacebookClient(pageAccessToken.getToken(), appSecret, Version.LATEST);
     }
 
-    public String publishPost(NewIssuePublishedData issue) {
-        final String messageData = messageDataProvider.prepareMessageData(issue);
+    public String publishPost(PostData postData) {
         final FacebookType publishResponse =
-            facebook.publish("me/feed", Post.class,
-                Parameter.with("message", messageData),
-                Parameter.with("link", issue.getUrl()));
+            facebook.publish("me/feed", Post.class, postData.getParams());
         log.info("Message published with id {}", publishResponse.getId());
         return publishResponse.getId();
     }

@@ -1,13 +1,11 @@
 package pl.devthoughts.facebook.client;
 
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
 import pl.devthoughts.facebook.client.fb.FacebookPublisher;
 import pl.devthoughts.facebook.client.fb.PageAccessToken;
 import pl.devthoughts.facebook.client.fb.PageAccessTokenProvider;
 import pl.devthoughts.facebook.client.kafka.KafkaConsumer;
-import pl.devthoughts.facebook.client.templates.MessageDataProvider;
-import pl.devthoughts.facebook.client.templates.MessageTemplateProvider;
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
 
 import java.io.IOException;
 
@@ -29,11 +27,9 @@ public class Application {
 	}
 
 	private static FacebookPublisher facebookPublisher(Config appConfig) throws IOException {
-		final MessageTemplateProvider templateProvider = new MessageTemplateProvider(appConfig);
-		final MessageDataProvider messageDataProvider = new MessageDataProvider(templateProvider);
 		final Config fbConfig = appConfig.getConfig("facebook");
 		final PageAccessToken pageAccessToken = getPageAccessToken(fbConfig);
-		return new FacebookPublisher(fbConfig, pageAccessToken, messageDataProvider);
+		return new FacebookPublisher(fbConfig, pageAccessToken);
 	}
 
 }

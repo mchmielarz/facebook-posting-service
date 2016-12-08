@@ -9,20 +9,20 @@ import akka.kafka.javadsl.Consumer;
 import akka.stream.ActorMaterializer;
 import akka.stream.Materializer;
 import akka.stream.javadsl.Sink;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import pl.devthoughts.facebook.client.NewIssuePublishedData;
-import pl.devthoughts.facebook.client.fb.FacebookPublisher;
 import lombok.extern.slf4j.Slf4j;
 import net.jodah.failsafe.Failsafe;
 import net.jodah.failsafe.RetryPolicy;
 import org.apache.kafka.common.serialization.ByteArrayDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import pl.devthoughts.facebook.client.PostData;
+import pl.devthoughts.facebook.client.fb.FacebookPublisher;
 
 @Slf4j
 public class KafkaConsumer {
 
     private final RetryPolicy retryPolicy = new RetryPolicy().retryOn(Exception.class);
-    private final ObjectMapper mapper = new ObjectMapper();
+
+    private final KafkaMessageParser mapper = new KafkaMessageParser();
     private final FacebookPublisher facebookPublisher;
 
     public KafkaConsumer(FacebookPublisher facebookPublisher) {
@@ -42,18 +42,16 @@ public class KafkaConsumer {
             .map(msg -> {
                 log.info("Received a message: {}", msg);
                 ConsumerMessage.CommittableMessage committableMessage = (ConsumerMessage.CommittableMessage) msg;
-                final NewIssuePublishedData data = parse(committableMessage);
-                final String postId =
-                    Failsafe.with(retryPolicy).get(() -> facebookPublisher.publishPost(data));
+                final PostData data = mapper.parse((String) committableMessage.record().value());
+                final String postId = publishPost(data);
                 committableMessage.committableOffset().commitJavadsl();
                 return postId;
             })
             .runWith(loggingSink, materializer);
     }
 
-    private NewIssuePublishedData parse(ConsumerMessage.CommittableMessage msg) throws java.io.IOException {
-        final Object value = msg.record().value();
-        return mapper.readValue((String) value, NewIssuePublishedData.class);
+    private String publishPost(PostData data) {
+        return Failsafe.with(retryPolicy).get(() -> facebookPublisher.publishPost(data));
     }
 
 }
