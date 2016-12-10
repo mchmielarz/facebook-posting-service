@@ -24,7 +24,7 @@ To grab a user access token two calls have to be made to Facebook Graph API:
 * the second one to change the code to access user token:
 `GET https://graph.facebook.com/oauth/access_token?client_id={app-id}&redirect_uri={redirect-uri}&client_secret={app-secret}&code={code}`
 
-`{redirect-uri}` can be anything based on *App Domain* defined on [the application settings page](https://developers.facebook.com/apps/984518258323702/settings/). 
+`{redirect-uri}` can be anything based on *App Domain* defined on the application settings page.
 
 ##Running
 
