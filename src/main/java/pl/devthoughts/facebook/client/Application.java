@@ -22,14 +22,14 @@ public class Application {
 		return ConfigFactory.load().withFallback(systemProperties);
 	}
 
-	private static PageAccessToken getPageAccessToken(Config fbConfig) throws IOException {
-		return new PageAccessTokenProvider(fbConfig).getToken();
-	}
-
 	private static FacebookPublisher facebookPublisher(Config appConfig) throws IOException {
 		final Config fbConfig = appConfig.getConfig("facebook");
 		final PageAccessToken pageAccessToken = getPageAccessToken(fbConfig);
 		return new FacebookPublisher(fbConfig, pageAccessToken);
+	}
+
+	private static PageAccessToken getPageAccessToken(Config fbConfig) throws IOException {
+		return new PageAccessTokenProvider(fbConfig).getToken();
 	}
 
 }
