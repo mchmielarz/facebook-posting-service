@@ -23,6 +23,7 @@ public class FacebookPublisher {
     }
 
     public String publishPost(PostData postData) {
+        log.info("Sending a new message to Facebook: {}", postData);
         final FacebookType publishResponse =
             facebook.publish("me/feed", Post.class, postData.getParams());
         log.info("Message published with id {}", publishResponse.getId());
