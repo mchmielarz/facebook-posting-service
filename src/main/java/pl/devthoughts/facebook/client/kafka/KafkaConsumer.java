@@ -51,7 +51,10 @@ public class KafkaConsumer {
     }
 
     private String publishPost(PostData data) {
-        return Failsafe.with(retryPolicy).get(() -> facebookPublisher.publishPost(data));
+        return Failsafe
+            .with(retryPolicy)
+            .onFailedAttempt(ex -> log.error("Sending new post failed.", ex))
+            .get(() -> facebookPublisher.publishPost(data));
     }
 
 }
