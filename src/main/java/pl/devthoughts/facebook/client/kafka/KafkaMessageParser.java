@@ -11,7 +11,7 @@ import java.util.Map;
 
 import static java.util.stream.Collectors.toList;
 
-public class KafkaMessageParser {
+class KafkaMessageParser {
 
     private final ObjectMapper mapper = new ObjectMapper();
 
