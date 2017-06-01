@@ -46,7 +46,7 @@ dependencies {
     compile 'net.jodah:failsafe:1.0.0'
 
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
-    testCompile 'com.github.charithe:kafka-junit:3.0.0'
+    testCompile 'com.github.charithe:kafka-junit:3.0.3'
     testCompile 'cglib:cglib-nodep:3.2.4'
     testCompile 'org.objenesis:objenesis:2.4'
 }
