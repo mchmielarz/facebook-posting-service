@@ -38,7 +38,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.typesafe.akka:akka-stream-kafka_2.11:0.16'
+    compile 'com.typesafe.akka:akka-stream-kafka_2.11:0.15'
     compile 'com.restfb:restfb:1.40.1'
     compile 'org.projectlombok:lombok:1.16.10'
     compile 'ch.qos.logback:logback-classic:1.1.7'
