@@ -14,7 +14,7 @@ class KafkaSpec extends Specification {
     private static final String MESSAGE = '{"link":"http://some.url","message":"Readme"}'
 
     @Rule
-    public KafkaJunitRule kafkaRule = new KafkaJunitRule(EphemeralKafkaBroker.create(9092, 2181));
+    public KafkaJunitRule kafkaRule = new KafkaJunitRule(EphemeralKafkaBroker.create(9092, 2181))
 
     private FacebookPublisher facebookPublisher = Mock(FacebookPublisher)
 
