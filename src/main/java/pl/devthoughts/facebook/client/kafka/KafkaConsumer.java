@@ -20,7 +20,7 @@ import pl.devthoughts.facebook.client.fb.FacebookPublisher;
 @Slf4j
 public class KafkaConsumer {
 
-    private final RetryPolicy retryPolicy = new RetryPolicy().retryOn(Exception.class);
+    private final RetryPolicy retryPolicy = new RetryPolicy().withMaxRetries(3).retryOn(Exception.class);
 
     private final KafkaMessageParser mapper = new KafkaMessageParser();
     private final FacebookPublisher facebookPublisher;
