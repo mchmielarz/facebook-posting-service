@@ -2,12 +2,14 @@ package pl.devthoughts.facebook.client.fb;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.restfb.DefaultFacebookClient;
-import com.restfb.Version;
 import com.restfb.WebRequestor;
 import com.typesafe.config.Config;
+
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
+
+import static com.restfb.Version.VERSION_2_9;
 
 @Slf4j
 public class PageAccessTokenProvider {
@@ -21,7 +23,7 @@ public class PageAccessTokenProvider {
     private final ObjectMapper objectMapper;
 
     public PageAccessTokenProvider(Config facebookConfig) {
-        facebookClient = new DefaultFacebookClient(Version.LATEST);
+        facebookClient = new DefaultFacebookClient(VERSION_2_9);
         appSecret = facebookConfig.getString("app.secret");
         userAccessToken = facebookConfig.getString("user.access.token");
         pageId = facebookConfig.getString("page.id");

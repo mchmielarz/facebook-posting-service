@@ -2,14 +2,17 @@ package pl.devthoughts.facebook.client.fb;
 
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
-import com.restfb.Version;
 import com.restfb.types.FacebookType;
 import com.restfb.types.Post;
 import com.typesafe.config.Config;
+
 import lombok.extern.slf4j.Slf4j;
+
 import pl.devthoughts.facebook.client.PostData;
 
 import java.io.IOException;
+
+import static com.restfb.Version.VERSION_2_9;
 
 @Slf4j
 public class FacebookPublisher {
@@ -19,7 +22,7 @@ public class FacebookPublisher {
     public FacebookPublisher(Config config,
                              PageAccessToken pageAccessToken) throws IOException {
         String appSecret = config.getString("app.secret");
-        facebook = new DefaultFacebookClient(pageAccessToken.getToken(), appSecret, Version.LATEST);
+        facebook = new DefaultFacebookClient(pageAccessToken.getToken(), appSecret, VERSION_2_9);
     }
 
     public String publishPost(PostData postData) {
