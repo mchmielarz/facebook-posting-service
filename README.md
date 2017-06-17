@@ -34,11 +34,11 @@ To generate a Docker image simply run:
 `./gradlew buildDocker`
 
 The application as a Docker container can be started with the following command:
-`docker run -e PAGE_ID=... -e APP_ID=... -e APP_SECRET=... -e ACCESS_TOKEN=... docker_image_name`
+`docker run -e PAGE_ID=... -e APP_SECRET=... -e ACCESS_TOKEN=... docker_image_name`
 
 ### IDE
 You can start the application from IDE as well.
 
 The main class is `pl.devthoughts.facebook.client.Application`.
 
-Required configuration parameters have to be provided as VM parameters: `-Dfacebook.app.secret=... -Dfacebook.user.access.token=... -Dfacebook.page.id=... -Dfacebook.app.id=...`
+Required configuration parameters have to be provided as VM parameters: `-Dfacebook.app.secret=... -Dfacebook.user.access.token=... -Dfacebook.page.id=...`
