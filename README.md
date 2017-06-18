@@ -1,7 +1,7 @@
 # Facebook client
 
 ## Configuration
-The application requires four parameters at startup: identifier of the Facebook page, user access token and application's id and secret.
+The application requires four parameters: identifier of the Facebook page, user access token and application's id and secret.
 
 ### Page id
 A unique identifier of the Facebook page you would like to post on. Can be found with [findmyfbid.com](http://findmyfbid.com).
