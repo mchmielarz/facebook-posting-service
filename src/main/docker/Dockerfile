@@ -21,5 +21,4 @@ CMD java -Djava.security.egd=file:/dev/./urandom \
             -Dfacebook.app.secret=$APP_SECRET \
             -Dfacebook.user.access.token=$ACCESS_TOKEN \
             -Dfacebook.page.id=$PAGE_ID \
-            -Dfacebook.app.id=$APP_ID \
             -jar facebook-posting-service.jar
